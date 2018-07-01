@@ -38,8 +38,13 @@ class Action extends React.Component {
 }
 // Options
 class Options extends React.Component {
+    constructor(props) {
+        super();
+        this.handleRemoveAll = this.handleRemoveAll.bind(this);
+    }
     handleRemoveAll() {
-        alert('Handle remove all')
+        // alert('Handle remove all');
+        console.log(this.props.options);
     }
     render() {
         return(
@@ -66,7 +71,7 @@ class Option extends React.Component {
 class AddOption extends React.Component {
     handleAddOption(e) {
         e.preventDefault();
-        const option = e.target.elements.option.value;
+        const option = e.target.elements.option.value.trim();
         if(option){
             alert (`The input value is: ${option}`);
         }else{
