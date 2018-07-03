@@ -8,108 +8,197 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var count = 123;
+// import classNames from 'classnames';
 
-var Counter = function (_React$Component) {
-    _inherits(Counter, _React$Component);
+var defaultClass = 'mopro-tab';
 
-    function Counter(props) {
-        _classCallCheck(this, Counter);
+var MoproTab = function (_React$Component) {
+    _inherits(MoproTab, _React$Component);
 
-        var _this = _possibleConstructorReturn(this, (Counter.__proto__ || Object.getPrototypeOf(Counter)).call(this));
+    function MoproTab() {
+        _classCallCheck(this, MoproTab);
 
-        _this.handleAddOne = _this.handleAddOne.bind(_this);
-        _this.handleMinusOne = _this.handleMinusOne.bind(_this);
-        _this.handleReset = _this.handleReset.bind(_this);
-        _this.state = {
-            count: 0
-        };
-        return _this;
+        return _possibleConstructorReturn(this, (MoproTab.__proto__ || Object.getPrototypeOf(MoproTab)).apply(this, arguments));
     }
 
-    _createClass(Counter, [{
-        key: 'handleAddOne',
-        value: function handleAddOne() {
-            console.log('handleAddOne');
-            return this.state.count++;
-        }
-    }, {
-        key: 'handleMinusOne',
-        value: function handleMinusOne() {
-            console.log('handleMinusOne');
-            return this.count--;
-        }
-    }, {
-        key: 'handleReset',
-        value: function handleReset() {
-            console.log('handleReset');
-            return this.count = 123;
-        }
-    }, {
+    _createClass(MoproTab, [{
         key: 'render',
         value: function render() {
-            return React.createElement(
-                'div',
+            return console.log('Mopro Tab'), React.createElement(
+                Tabs,
                 null,
                 React.createElement(
-                    'h1',
+                    TabList,
                     null,
-                    'Counter: ',
-                    this.state.count
+                    React.createElement(
+                        Tab,
+                        null,
+                        'One '
+                    ),
+                    React.createElement(
+                        Tab,
+                        null,
+                        'Two '
+                    ),
+                    React.createElement(
+                        Tab,
+                        null,
+                        'Three '
+                    )
                 ),
                 React.createElement(
-                    'button',
-                    { onClick: this.handleAddOne },
-                    '+1'
+                    TabPanel,
+                    null,
+                    React.createElement(
+                        'h2',
+                        null,
+                        'Result One'
+                    )
                 ),
                 React.createElement(
-                    'button',
-                    { onClick: this.handleMinusOne },
-                    '-1'
+                    TabPanel,
+                    null,
+                    React.createElement(
+                        'h2',
+                        null,
+                        'Result One'
+                    )
                 ),
                 React.createElement(
-                    'button',
-                    { onClick: this.handleReset },
-                    'Reset'
+                    TabPanel,
+                    null,
+                    React.createElement(
+                        'h2',
+                        null,
+                        'Result One'
+                    )
                 )
             );
         }
     }]);
 
-    return Counter;
+    return MoproTab;
 }(React.Component);
 
-ReactDOM.render(React.createElement(Counter, null), document.getElementById('app'));
+var Tabs = function (_React$Component2) {
+    _inherits(Tabs, _React$Component2);
 
-// let count = 0;
-// const addOne = () =>{
-//     count++
-//     renderCounterApp();
-//     console.log('Count add one +1', count);
-// }
-// const minusOne = () =>{
-//     count--
-//     renderCounterApp();
-//     console.log('Count minus one -1', count);
-// }
-// const reset = () =>{
-//     count = 0;
-//     renderCounterApp();
-//     console.log('Count reset 0', count);
-// }
+    function Tabs() {
+        _classCallCheck(this, Tabs);
 
-// const appRoot = document.getElementById('app');
+        return _possibleConstructorReturn(this, (Tabs.__proto__ || Object.getPrototypeOf(Tabs)).apply(this, arguments));
+    }
 
-// const renderCounterApp = () =>{
-//     const templateTwo = (
-//         <div>
-//             <h1>Count: {count}</h1>
-//             <button onClick={addOne}>+1</button>
-//             <button onClick={minusOne}>-1</button>
-//             <button onClick={reset}>Reset</button>
-//         </div>
-//     );
-//     ReactDOM.render(templateTwo,appRoot);
-// }
+    _createClass(Tabs, [{
+        key: 'render',
+        value: function render() {
+            return console.log('Tabs'), React.createElement(
+                'div',
+                { className: defaultClass },
+                this.props.children
+            );
+        }
+    }]);
 
-// renderCounterApp();
+    return Tabs;
+}(React.Component);
+
+var TabList = function (_React$Component3) {
+    _inherits(TabList, _React$Component3);
+
+    function TabList() {
+        _classCallCheck(this, TabList);
+
+        return _possibleConstructorReturn(this, (TabList.__proto__ || Object.getPrototypeOf(TabList)).apply(this, arguments));
+    }
+
+    _createClass(TabList, [{
+        key: 'render',
+        value: function render() {
+            return console.log('Tab nav'), React.createElement(
+                'ul',
+                { className: defaultClass + '__nav', role: 'tabnav' },
+                this.props.children
+            );
+        }
+    }]);
+
+    return TabList;
+}(React.Component);
+
+var Tab = function (_React$Component4) {
+    _inherits(Tab, _React$Component4);
+
+    function Tab(props) {
+        _classCallCheck(this, Tab);
+
+        var _this4 = _possibleConstructorReturn(this, (Tab.__proto__ || Object.getPrototypeOf(Tab)).call(this));
+
+        _this4.clickFunction = _this4.clickFunction.bind(_this4);
+        _this4.state = {
+            defaultClass: defaultClass + '__list',
+            activeClass: defaultClass + '--active',
+            selected: true
+        };
+        return _this4;
+    }
+
+    _createClass(Tab, [{
+        key: 'clickFunction',
+        value: function clickFunction() {
+            var children = this.props.children;
+            console.log(children, this.state.defaultClass + ' ' + this.state.activeClass);
+            this.setState(function (changeClass) {
+                if (changeClass) {
+                    return {
+                        defaultClass: changeClass.defaultClass + ' ' + changeClass.activeClass
+                    };
+                } else {
+                    return {
+                        defaultClass: changeClass.defaultClass
+                    };
+                }
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return console.log('Tab List'), React.createElement(
+                'li',
+                {
+                    className: this.state.defaultClass,
+                    role: 'tablist',
+                    onClick: this.clickFunction
+                },
+                this.props.children
+            );
+        }
+    }]);
+
+    return Tab;
+}(React.Component);
+
+var TabPanel = function (_React$Component5) {
+    _inherits(TabPanel, _React$Component5);
+
+    function TabPanel() {
+        _classCallCheck(this, TabPanel);
+
+        return _possibleConstructorReturn(this, (TabPanel.__proto__ || Object.getPrototypeOf(TabPanel)).apply(this, arguments));
+    }
+
+    _createClass(TabPanel, [{
+        key: 'render',
+        value: function render() {
+            return console.log('Tab panel'), React.createElement(
+                'div',
+                { className: defaultClass + '__panel', role: 'tabpanel' },
+                this.props.children
+            );
+        }
+    }]);
+
+    return TabPanel;
+}(React.Component);
+
+ReactDOM.render(React.createElement(MoproTab, null), document.getElementById('app'));
