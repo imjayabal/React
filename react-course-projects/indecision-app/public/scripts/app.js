@@ -8,197 +8,257 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-// import classNames from 'classnames';
+var IndecisionApp = function (_React$Component) {
+    _inherits(IndecisionApp, _React$Component);
 
-var defaultClass = 'mopro-tab';
+    function IndecisionApp(props) {
+        _classCallCheck(this, IndecisionApp);
 
-var MoproTab = function (_React$Component) {
-    _inherits(MoproTab, _React$Component);
+        var _this = _possibleConstructorReturn(this, (IndecisionApp.__proto__ || Object.getPrototypeOf(IndecisionApp)).call(this, props));
 
-    function MoproTab() {
-        _classCallCheck(this, MoproTab);
-
-        return _possibleConstructorReturn(this, (MoproTab.__proto__ || Object.getPrototypeOf(MoproTab)).apply(this, arguments));
+        _this.state = {
+            options: ['Thing One', 'Thing Two', 'Thing Three']
+        };
+        _this.handleDeleteOptions = _this.handleDeleteOptions.bind(_this);
+        _this.handlePick = _this.handlePick.bind(_this);
+        _this.handleAddOption = _this.handleAddOption.bind(_this);
+        return _this;
     }
 
-    _createClass(MoproTab, [{
+    _createClass(IndecisionApp, [{
+        key: 'handleDeleteOptions',
+        value: function handleDeleteOptions() {
+            this.setState(function () {
+                return {
+                    options: []
+                };
+            });
+        }
+    }, {
+        key: 'handlePick',
+        value: function handlePick() {
+            var randomNumber = Math.floor(Math.random() * this.state.options.length);
+            var option = this.state.options[randomNumber];
+            alert(option);
+        }
+    }, {
+        key: 'handleAddOption',
+        value: function handleAddOption(option) {
+            if (!option) {
+                return 'Please enter valid input';
+            } else if (this.state.options.indexOf(option) > -1) {
+                return 'This option already added';
+            }
+            this.setState(function (prevState) {
+                return {
+                    options: prevState.options.concat(option)
+                };
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
-            return console.log('Mopro Tab'), React.createElement(
-                Tabs,
+            var title = 'Indecision';
+            var subtitle = 'Put you life in the hands on computer';
+            return React.createElement(
+                'div',
+                null,
+                React.createElement(Header, { title: title, subtitle: subtitle }),
+                React.createElement(Action, {
+                    hasOptions: this.state.options.length > 0,
+                    handlePick: this.handlePick
+                }),
+                React.createElement(Options, {
+                    options: this.state.options,
+                    handleDeleteOptions: this.handleDeleteOptions
+                }),
+                React.createElement(AddOption, {
+                    handleAddOption: this.handleAddOption
+                })
+            );
+        }
+    }]);
+
+    return IndecisionApp;
+}(React.Component);
+
+// Header
+
+
+var Header = function (_React$Component2) {
+    _inherits(Header, _React$Component2);
+
+    function Header() {
+        _classCallCheck(this, Header);
+
+        return _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).apply(this, arguments));
+    }
+
+    _createClass(Header, [{
+        key: 'render',
+        value: function render() {
+            return React.createElement(
+                'div',
                 null,
                 React.createElement(
-                    TabList,
+                    'h1',
                     null,
-                    React.createElement(
-                        Tab,
-                        null,
-                        'One '
-                    ),
-                    React.createElement(
-                        Tab,
-                        null,
-                        'Two '
-                    ),
-                    React.createElement(
-                        Tab,
-                        null,
-                        'Three '
-                    )
+                    this.props.title
                 ),
                 React.createElement(
-                    TabPanel,
+                    'h2',
                     null,
-                    React.createElement(
-                        'h2',
-                        null,
-                        'Result One'
-                    )
+                    this.props.subtitle
+                )
+            );
+        }
+    }]);
+
+    return Header;
+}(React.Component);
+// Action
+
+
+var Action = function (_React$Component3) {
+    _inherits(Action, _React$Component3);
+
+    function Action() {
+        _classCallCheck(this, Action);
+
+        return _possibleConstructorReturn(this, (Action.__proto__ || Object.getPrototypeOf(Action)).apply(this, arguments));
+    }
+
+    _createClass(Action, [{
+        key: 'render',
+        value: function render() {
+            return React.createElement(
+                'button',
+                {
+                    onClick: this.props.handlePick,
+                    disabled: !this.props.hasOptions
+                },
+                'What should I do?'
+            );
+        }
+    }]);
+
+    return Action;
+}(React.Component);
+// Options
+
+
+var Options = function (_React$Component4) {
+    _inherits(Options, _React$Component4);
+
+    function Options() {
+        _classCallCheck(this, Options);
+
+        return _possibleConstructorReturn(this, (Options.__proto__ || Object.getPrototypeOf(Options)).apply(this, arguments));
+    }
+
+    _createClass(Options, [{
+        key: 'render',
+        value: function render() {
+            return React.createElement(
+                'div',
+                null,
+                React.createElement(
+                    'button',
+                    { onClick: this.props.handleDeleteOptions },
+                    'Remove All'
+                ),
+                this.props.options.map(function (option) {
+                    return React.createElement(Option, { key: option, optionText: option });
+                })
+            );
+        }
+    }]);
+
+    return Options;
+}(React.Component);
+//Option
+
+
+var Option = function (_React$Component5) {
+    _inherits(Option, _React$Component5);
+
+    function Option() {
+        _classCallCheck(this, Option);
+
+        return _possibleConstructorReturn(this, (Option.__proto__ || Object.getPrototypeOf(Option)).apply(this, arguments));
+    }
+
+    _createClass(Option, [{
+        key: 'render',
+        value: function render() {
+            return React.createElement(
+                'div',
+                null,
+                this.props.optionText
+            );
+        }
+    }]);
+
+    return Option;
+}(React.Component);
+// Add option
+
+
+var AddOption = function (_React$Component6) {
+    _inherits(AddOption, _React$Component6);
+
+    function AddOption(props) {
+        _classCallCheck(this, AddOption);
+
+        var _this6 = _possibleConstructorReturn(this, (AddOption.__proto__ || Object.getPrototypeOf(AddOption)).call(this, props));
+
+        _this6.handleAddOption = _this6.handleAddOption.bind(_this6);
+
+        _this6.state = {
+            error: undefined
+        };
+        return _this6;
+    }
+
+    _createClass(AddOption, [{
+        key: 'handleAddOption',
+        value: function handleAddOption(e) {
+            e.preventDefault();
+            var option = e.target.elements.option.value.trim();
+            var error = this.props.handleAddOption(option);
+
+            this.setState(function () {
+                return {
+                    error: error
+                };
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return React.createElement(
+                'div',
+                null,
+                this.state.error && React.createElement(
+                    'p',
+                    null,
+                    this.state.error
                 ),
                 React.createElement(
-                    TabPanel,
-                    null,
+                    'form',
+                    { onSubmit: this.handleAddOption },
+                    React.createElement('input', { type: 'text', name: 'option' }),
                     React.createElement(
-                        'h2',
+                        'button',
                         null,
-                        'Result One'
-                    )
-                ),
-                React.createElement(
-                    TabPanel,
-                    null,
-                    React.createElement(
-                        'h2',
-                        null,
-                        'Result One'
+                        'Submit'
                     )
                 )
             );
         }
     }]);
 
-    return MoproTab;
+    return AddOption;
 }(React.Component);
 
-var Tabs = function (_React$Component2) {
-    _inherits(Tabs, _React$Component2);
-
-    function Tabs() {
-        _classCallCheck(this, Tabs);
-
-        return _possibleConstructorReturn(this, (Tabs.__proto__ || Object.getPrototypeOf(Tabs)).apply(this, arguments));
-    }
-
-    _createClass(Tabs, [{
-        key: 'render',
-        value: function render() {
-            return console.log('Tabs'), React.createElement(
-                'div',
-                { className: defaultClass },
-                this.props.children
-            );
-        }
-    }]);
-
-    return Tabs;
-}(React.Component);
-
-var TabList = function (_React$Component3) {
-    _inherits(TabList, _React$Component3);
-
-    function TabList() {
-        _classCallCheck(this, TabList);
-
-        return _possibleConstructorReturn(this, (TabList.__proto__ || Object.getPrototypeOf(TabList)).apply(this, arguments));
-    }
-
-    _createClass(TabList, [{
-        key: 'render',
-        value: function render() {
-            return console.log('Tab nav'), React.createElement(
-                'ul',
-                { className: defaultClass + '__nav', role: 'tabnav' },
-                this.props.children
-            );
-        }
-    }]);
-
-    return TabList;
-}(React.Component);
-
-var Tab = function (_React$Component4) {
-    _inherits(Tab, _React$Component4);
-
-    function Tab(props) {
-        _classCallCheck(this, Tab);
-
-        var _this4 = _possibleConstructorReturn(this, (Tab.__proto__ || Object.getPrototypeOf(Tab)).call(this));
-
-        _this4.clickFunction = _this4.clickFunction.bind(_this4);
-        _this4.state = {
-            defaultClass: defaultClass + '__list',
-            activeClass: defaultClass + '--active',
-            selected: true
-        };
-        return _this4;
-    }
-
-    _createClass(Tab, [{
-        key: 'clickFunction',
-        value: function clickFunction() {
-            var children = this.props.children;
-            console.log(children, this.state.defaultClass + ' ' + this.state.activeClass);
-            this.setState(function (changeClass) {
-                if (changeClass) {
-                    return {
-                        defaultClass: changeClass.defaultClass + ' ' + changeClass.activeClass
-                    };
-                } else {
-                    return {
-                        defaultClass: changeClass.defaultClass
-                    };
-                }
-            });
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            return console.log('Tab List'), React.createElement(
-                'li',
-                {
-                    className: this.state.defaultClass,
-                    role: 'tablist',
-                    onClick: this.clickFunction
-                },
-                this.props.children
-            );
-        }
-    }]);
-
-    return Tab;
-}(React.Component);
-
-var TabPanel = function (_React$Component5) {
-    _inherits(TabPanel, _React$Component5);
-
-    function TabPanel() {
-        _classCallCheck(this, TabPanel);
-
-        return _possibleConstructorReturn(this, (TabPanel.__proto__ || Object.getPrototypeOf(TabPanel)).apply(this, arguments));
-    }
-
-    _createClass(TabPanel, [{
-        key: 'render',
-        value: function render() {
-            return console.log('Tab panel'), React.createElement(
-                'div',
-                { className: defaultClass + '__panel', role: 'tabpanel' },
-                this.props.children
-            );
-        }
-    }]);
-
-    return TabPanel;
-}(React.Component);
-
-ReactDOM.render(React.createElement(MoproTab, null), document.getElementById('app'));
+ReactDOM.render(React.createElement(IndecisionApp, null), document.getElementById('app'));
